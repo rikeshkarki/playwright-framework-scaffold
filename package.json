@@ -1,0 +1,26 @@
+{
+  "name": "playwright-e2e-framework",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test src/tests/ui",
+    "test:api": "playwright test src/tests/api",
+    "test:synthetic": "playwright test --grep @synthetic",
+    "update-snapshots": "playwright test --update-snapshots",
+    "report:generate": "allure generate allure-results --clean -o allure-report",
+    "report:open": "allure open allure-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.48.0",
+    "@types/node": "^22.7.5",
+    "allure-commandline": "^2.32.0",
+    "allure-playwright": "^3.0.5",
+    "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "axe-core": "^4.10.0",
+    "@axe-core/playwright": "^4.10.0",
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1"
+  }
+}

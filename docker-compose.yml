@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  e2e-tests:
+    build: .
+    volumes:
+      - .:/app
+    environment:
+      - BASE_URL=http://webapp:3000
+    depends_on:
+      - webapp
+  webapp:
+    image: myapp:latest
+    ports:
+      - "3000:3000"
