@@ -9,8 +9,33 @@ automation practice — no local app required.
 
 - **Node.js** 18+
 - **Java runtime (JRE 8+)** — required by `allure-commandline` to generate/open the
-  Allure report. Check with `java -version`; install via `brew install openjdk` on
-  macOS if missing.
+  Allure report. Check with `java -version`.
+
+Installing Node.js and Java if you don't have them:
+
+**macOS** (via [Homebrew](https://brew.sh)):
+```bash
+brew install node openjdk
+```
+
+**Linux** (Debian/Ubuntu):
+```bash
+curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+sudo apt-get install -y nodejs default-jre
+```
+Other distros: install `nodejs`/`npm` and a JRE (e.g. `default-jre`, `java-17-openjdk`)
+via your package manager (`dnf`, `pacman`, etc.), or use [nvm](https://github.com/nvm-sh/nvm)
+for Node.
+
+**Windows**:
+- Node.js: download the LTS installer from [nodejs.org](https://nodejs.org) (or
+  `winget install OpenJS.NodeJS.LTS`), then use PowerShell or Command Prompt for the
+  commands below.
+- Java: `winget install EclipseAdoptium.Temurin.17.JRE` (or download from
+  [adoptium.net](https://adoptium.net)).
+- Playwright itself works the same on Windows; native Playwright browser binaries
+  (Chromium/Firefox/WebKit) are downloaded per-OS by `npx playwright install`, so no
+  extra setup is needed beyond Node and Java.
 
 ## Setup
 
@@ -18,6 +43,9 @@ automation practice — no local app required.
 npm install
 npx playwright install   # downloads the Chromium/Firefox/WebKit browser binaries
 ```
+
+On Linux, Playwright may also ask for missing OS-level libraries the first time — run
+`npx playwright install-deps` (needs `sudo`) to install them.
 
 ## Running tests
 
@@ -31,7 +59,18 @@ npm run test:synthetic   # only tests tagged @synthetic
 Point tests at a different app with the `BASE_URL` environment variable, e.g.:
 
 ```bash
+# macOS / Linux (bash/zsh)
 BASE_URL=http://localhost:3000 npm test
+```
+
+```powershell
+# Windows PowerShell
+$env:BASE_URL="http://localhost:3000"; npm test
+```
+
+```cmd
+:: Windows Command Prompt
+set BASE_URL=http://localhost:3000 && npm test
 ```
 
 ### Visual snapshot test
